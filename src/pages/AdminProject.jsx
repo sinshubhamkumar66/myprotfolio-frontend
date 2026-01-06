@@ -1,9 +1,20 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
-import "../styles/ProjectsPage.css";
 
-export default function ProjectsPage() {
+export default function AdminProject() {
+  const [project, setProject] = useState({
+    projectName: "",
+    companyName: "",
+    role: "",
+    description: "",
+    responsibilities: "",
+    techStack: "",
+    duration: "",
+    currentProject: true,
+  });
+
   const [projects, setProjects] = useState([]);
+  const [successMsg, setSuccessMsg] = useState("");
 
   // ================= FETCH PROJECTS =================
   const fetchProjects = async () => {
@@ -11,7 +22,7 @@ export default function ProjectsPage() {
       const res = await api.get("/projects");
       setProjects(Array.isArray(res.data) ? res.data : []);
     } catch (error) {
-      console.error("Failed to load projects", error);
+      console.error("Failed to fetch projects", error);
     }
   };
 
@@ -19,64 +30,152 @@ export default function ProjectsPage() {
     fetchProjects();
   }, []);
 
+  // ================= HANDLE INPUT =================
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setProject((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  // ================= SUBMIT =================
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      await api.post("/admin/projects", project);
+
+      setSuccessMsg("✅ Project added successfully");
+
+      setProject({
+        projectName: "",
+        companyName: "",
+        role: "",
+        description: "",
+        responsibilities: "",
+        techStack: "",
+        duration: "",
+        currentProject: true,
+      });
+
+      fetchProjects();
+      setTimeout(() => setSuccessMsg(""), 3000);
+    } catch (error) {
+      console.error("Failed to add project", error);
+    }
+  };
+
+  // ================= DELETE =================
+  const deleteProject = async (id) => {
+    try {
+      await api.delete(`/admin/projects/${id}`);
+
+      setSuccessMsg("🗑️ Project deleted successfully");
+      fetchProjects();
+      setTimeout(() => setSuccessMsg(""), 3000);
+    } catch (error) {
+      console.error("Failed to delete project", error);
+    }
+  };
+
   return (
-    <section className="projects-page">
-      <h1 className="projects-title">Professional Projects</h1>
-      <p className="projects-subtitle">
-        Real-world enterprise projects I’ve worked on
-      </p>
+    <div>
+      <h3>Admin – Manage Projects</h3>
 
-      <div className="projects-grid">
-        {projects.map((project) => (
-          <div className="project-card" key={project.id}>
-            <div className="project-header">
-              <h3>{project.projectName}</h3>
+      {successMsg && <div className="success-message">{successMsg}</div>}
 
-              {project.currentProject && (
-                <span className="badge-current">Current</span>
-              )}
-            </div>
+      {/* ADD PROJECT */}
+      <form onSubmit={handleSubmit} className="admin-card">
+        <input
+          name="projectName"
+          placeholder="Project Name"
+          value={project.projectName}
+          onChange={handleChange}
+          required
+        />
 
-            <p className="company-role">
-              <strong>{project.companyName}</strong> · {project.role}
-            </p>
+        <input
+          name="companyName"
+          placeholder="Company Name"
+          value={project.companyName}
+          onChange={handleChange}
+          required
+        />
 
-            <p className="duration">{project.duration}</p>
+        <input
+          name="role"
+          placeholder="Role"
+          value={project.role}
+          onChange={handleChange}
+          required
+        />
 
-            <p className="description">{project.description}</p>
+        <textarea
+          name="description"
+          placeholder="Project Description"
+          value={project.description}
+          onChange={handleChange}
+          required
+        />
 
-            {/* RESPONSIBILITIES */}
-            {project.responsibilities && (
-              <div className="responsibilities">
-                <strong>Responsibilities:</strong>
-                <ul>
-                  {project.responsibilities
-                    .split(".")
-                    .filter(item => item.trim() !== "")
-                    .map((item, index) => (
-                      <li key={index}>{item.trim()}.</li>
-                    ))}
-                </ul>
-              </div>
-            )}
+        <textarea
+          name="responsibilities"
+          placeholder="Responsibilities (use . to separate points)"
+          value={project.responsibilities}
+          onChange={handleChange}
+          required
+        />
 
-            {/* TECH STACK */}
-            {project.techStack && (
-              <div className="tech-stack">
-                {project.techStack.split(",").map((tech, index) => (
-                  <span key={index} className="tech-badge">
-                    {tech.trim()}
-                  </span>
-                ))}
-              </div>
-            )}
-          </div>
-        ))}
+        <input
+          name="techStack"
+          placeholder="Tech Stack (comma separated)"
+          value={project.techStack}
+          onChange={handleChange}
+          required
+        />
+
+        <input
+          name="duration"
+          placeholder="Duration"
+          value={project.duration}
+          onChange={handleChange}
+          required
+        />
+
+        <label style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+          <input
+            type="checkbox"
+            name="currentProject"
+            checked={project.currentProject}
+            onChange={handleChange}
+          />
+          Current Project
+        </label>
+
+        <button type="submit">Add Project</button>
+      </form>
+
+      {/* LIST PROJECTS */}
+      <div className="admin-card" style={{ marginTop: "30px" }}>
+        <h4>Existing Projects</h4>
+
+        {projects.length === 0 && <p>No projects added yet.</p>}
+
+        <ul className="admin-skill-list">
+          {projects.map((proj) => (
+            <li key={proj.id} className="admin-skill-item">
+              <strong>{proj.projectName}</strong>
+              <button
+                className="delete-btn"
+                onClick={() => deleteProject(proj.id)}
+              >
+                Delete
+              </button>
+            </li>
+          ))}
+        </ul>
       </div>
-
-      {projects.length === 0 && (
-        <p className="empty-state">No projects available.</p>
-      )}
-    </section>
+    </div>
   );
 }
