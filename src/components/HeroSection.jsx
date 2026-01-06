@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";        // ✅ use central api
 import "../styles/HeroSection.css";
-import heroImg from "../assets/hero.png"; // static image
+import heroImg from "../assets/hero.PNG"; // static image
 
 export default function HeroSection() {
   const [profile, setProfile] = useState(null);
