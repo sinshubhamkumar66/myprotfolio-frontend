@@ -1,0 +1,114 @@
+/* ===== PAGE ===== */
+.skills-page {
+  min-height: 80vh;
+  padding: 70px 20px;
+  background: linear-gradient(135deg, #f8fafc, #eef2ff);
+}
+
+/* TITLE */
+.skills-title {
+  text-align: center;
+  font-size: 2.4rem;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+
+.skills-subtitle {
+  text-align: center;
+  color: #64748b;
+  margin-bottom: 50px;
+}
+
+/* CATEGORY */
+.skills-category {
+  max-width: 1100px;
+  margin: auto;
+  margin-bottom: 50px;
+}
+
+.skills-category h2 {
+  font-size: 1.6rem;
+  color: #1e293b;
+  margin-bottom: 18px;
+}
+
+/* GRID */
+.skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+/* SKILL CARD */
+.skill-card {
+  min-width: 180px;
+  padding: 16px 20px;
+  border-radius: 14px;
+  background: white;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+  animation: fadeUp 0.4s ease;
+}
+
+.skill-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+}
+
+/* TEXT */
+.skill-name {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+/* LEVEL BADGE */
+.skill-level {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* LEVEL COLORS */
+.skill-level.beginner {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.skill-level.intermediate {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.skill-level.advanced {
+  background: #dcfce7;
+  color: #166534;
+}
+
+/* ANIMATION */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .skills-grid {
+    justify-content: center;
+  }
+
+  .skill-card {
+    min-width: 150px;
+  }
+}

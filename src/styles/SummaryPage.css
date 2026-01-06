@@ -1,0 +1,95 @@
+/* ===== PAGE ===== */
+.summary-page {
+  min-height: 70vh;
+  background: linear-gradient(135deg, #f8fafc, #eef2ff);
+  padding: 60px 20px;
+}
+
+/* ===== CONTAINER ===== */
+.summary-container {
+  max-width: 900px;
+  margin: auto;
+}
+
+/* TITLE */
+.summary-container h1 {
+  font-size: 2.2rem;
+  text-align: center;
+  color: #0f172a;
+  margin-bottom: 10px;
+}
+
+.summary-subtitle {
+  text-align: center;
+  color: #64748b;
+  margin-bottom: 40px;
+  font-size: 1rem;
+}
+
+/* ===== LIST ===== */
+.summary-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* ===== CARD ===== */
+.summary-card {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+
+  background: white;
+  padding: 22px 24px;
+  border-radius: 14px;
+
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+  animation: fadeUp 0.5s ease;
+}
+
+/* NUMBER */
+.summary-index {
+  min-width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #2563eb;
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* TEXT */
+.summary-card p {
+  margin: 0;
+  color: #1e293b;
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+
+/* ===== ANIMATION ===== */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+  .summary-container h1 {
+    font-size: 1.8rem;
+  }
+
+  .summary-card {
+    padding: 18px;
+  }
+}

@@ -1,0 +1,158 @@
+/* =========================
+   NAVBAR BASE
+========================= */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 60px;
+  width: 100%;
+  z-index: 3000;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 18px;
+  background: linear-gradient(120deg, #0f172a, #1e3a8a);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+/* LOGO */
+.navbar-logo a {
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* =========================
+   DESKTOP MENU
+========================= */
+.navbar-menu {
+  display: flex;
+  list-style: none;
+  gap: 22px;
+  align-items: center;
+}
+
+.navbar-menu li a {
+  color: #e5e7eb;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.navbar-menu li a:hover {
+  color: #38bdf8;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+.signup-btn a {
+  padding: 8px 16px;
+  border-radius: 14px;
+  background: #38bdf8;
+  color: #020617;
+  font-weight: 700;
+}
+
+.logout-btn {
+  cursor: pointer;
+  font-weight: 600;
+  color: #fca5a5;
+}
+
+/* =========================
+   MOBILE ICON
+========================= */
+.mobile-menu-icon {
+  display: none;
+  font-size: 26px;
+  cursor: pointer;
+  color: white;
+}
+
+/* =========================
+   MOBILE MENU
+========================= */
+@media (max-width: 768px) {
+  .mobile-menu-icon {
+    display: block;
+  }
+
+  .navbar-menu {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+
+    background: #020617;
+    flex-direction: column;
+    gap: 18px;
+
+    padding: 20px 0;
+    display: none;
+  }
+
+  .navbar-menu.open {
+    display: flex;
+  }
+
+  .navbar-menu li a {
+    font-size: 1.1rem;
+  }
+}
+@media (max-width: 768px) {
+  .navbar-menu {
+    position: fixed;          /* 🔥 NOT absolute */
+    top: 60px;                /* below navbar */
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 60px);
+
+    background: linear-gradient(
+      180deg,
+      #020617,
+      #020617ee
+    );
+
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 26px;
+
+    padding: 0;
+    display: none;
+
+    z-index: 2500;
+  }
+
+  .navbar-menu.open {
+    display: flex;
+  }
+
+  .navbar-menu li a {
+    font-size: 1.3rem;
+    color: #f8fafc;
+  }
+}
+@media (max-width: 768px) {
+  .navbar-menu {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 60px);
+
+    overflow: hidden;   /* 🔥 prevents menu scroll bleed */
+
+    background: #020617;
+    display: none;
+  }
+
+  .navbar-menu.open {
+    display: flex;
+  }
+}
+
