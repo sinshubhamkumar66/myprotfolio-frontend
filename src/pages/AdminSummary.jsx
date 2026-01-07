@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import api from "../services/api";
+import api, { createSummary, getSummary } from "../services/api";
 
 export default function AdminSummary() {
   const [point, setPoint] = useState("");
@@ -9,7 +9,7 @@ export default function AdminSummary() {
   // ================= FETCH SUMMARY =================
   const fetchSummary = async () => {
     try {
-      const res = await api.get("/summary");
+      const res = await getSummary();
       setSummaryPoints(Array.isArray(res.data) ? res.data : []);
     } catch (error) {
       console.error("Failed to fetch summary", error);
@@ -25,7 +25,7 @@ export default function AdminSummary() {
     if (!point.trim()) return;
 
     try {
-      await api.post("/admin/summary", { point });
+      await createSummary({ point });
 
       setPoint("");
       setSuccessMsg("✅ Summary point saved successfully");
@@ -40,7 +40,7 @@ export default function AdminSummary() {
   // ================= DELETE SUMMARY =================
   const deleteSummary = async (id) => {
     try {
-      await api.delete(`/admin/summary/${id}`);
+      await deleteSummary(id);
       setSummaryPoints((prev) => prev.filter((item) => item.id !== id));
     } catch (error) {
       console.error("Failed to delete summary", error);

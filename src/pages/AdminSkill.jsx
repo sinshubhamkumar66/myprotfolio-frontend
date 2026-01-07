@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import api from "../services/api";
+import api, { createSkill, getSkills } from "../services/api";
 
 export default function AdminSkill() {
   const [skill, setSkill] = useState({
@@ -14,7 +14,7 @@ export default function AdminSkill() {
   // ================= FETCH SKILLS =================
   const fetchSkills = async () => {
     try {
-      const res = await api.get("/skills");
+      const res = await getSkills();
       setSkills(Array.isArray(res.data) ? res.data : []);
     } catch (error) {
       console.error("Failed to fetch skills", error);
@@ -39,7 +39,7 @@ export default function AdminSkill() {
     e.preventDefault();
 
     try {
-      await api.post("/admin/skills", skill);
+      await createSkill(skill);
 
       setSuccessMsg("✅ Skill saved successfully");
       setSkill({ name: "", category: "BACKEND", level: "BEGINNER" });
@@ -54,7 +54,7 @@ export default function AdminSkill() {
   // ================= DELETE =================
   const deleteSkill = async (id) => {
     try {
-      await api.delete(`/admin/skills/${id}`);
+      await deleteSkill(id);
       setSkills((prev) => prev.filter((s) => s.id !== id));
     } catch (error) {
       console.error("Failed to delete skill", error);

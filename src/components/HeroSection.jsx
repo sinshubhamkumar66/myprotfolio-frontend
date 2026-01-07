@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import api from "../services/api";        // ✅ use central api
+import api, { getProfile } from "../services/api";        // ✅ use central api
 import "../styles/HeroSection.css";
 import heroImg from "../assets/hero.PNG"; // static image
 
@@ -10,7 +10,7 @@ export default function HeroSection() {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await api.get("/profile"); // ✅ no localhost
+        const res = await getProfile(); // ✅ no localhost
         setProfile(res.data);
       } catch (error) {
         console.error("Failed to load profile", error);

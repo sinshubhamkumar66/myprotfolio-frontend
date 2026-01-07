@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import api from "../services/api";
+import api, { getProjects } from "../services/api";
 import "../styles/ProjectsPage.css";
 
 export default function ProjectsPage() {
@@ -8,7 +8,7 @@ export default function ProjectsPage() {
   // ================= FETCH PROJECTS =================
   const fetchProjects = async () => {
     try {
-      const res = await api.get("/projects");
+      const res = await getProjects();
       setProjects(Array.isArray(res.data) ? res.data : []);
     } catch (error) {
       console.error("Failed to load projects", error);

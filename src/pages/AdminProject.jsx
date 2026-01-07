@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import api from "../services/api";
+import api, { createProject, deleteProjects, getProjects } from "../services/api";
 
 export default function AdminProject() {
   const [project, setProject] = useState({
@@ -19,7 +19,7 @@ export default function AdminProject() {
   // ================= FETCH PROJECTS =================
   const fetchProjects = async () => {
     try {
-      const res = await api.get("/projects");
+      const res = await getProjects();
       setProjects(Array.isArray(res.data) ? res.data : []);
     } catch (error) {
       console.error("Failed to fetch projects", error);
@@ -44,7 +44,7 @@ export default function AdminProject() {
     e.preventDefault();
 
     try {
-      await api.post("/admin/projects", project);
+      await createProject(project);
 
       setSuccessMsg("✅ Project added successfully");
 
@@ -69,7 +69,7 @@ export default function AdminProject() {
   // ================= DELETE =================
   const deleteProject = async (id) => {
     try {
-      await api.delete(`/admin/projects/${id}`);
+      await deleteProjects(id); 
 
       setSuccessMsg("🗑️ Project deleted successfully");
       fetchProjects();

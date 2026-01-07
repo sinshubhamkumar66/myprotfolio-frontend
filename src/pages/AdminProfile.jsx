@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import api from "../services/api";
+import api, { createProfile } from "../services/api";
 
 export default function AdminProfile() {
   const [profile, setProfile] = useState({
@@ -43,7 +43,7 @@ export default function AdminProfile() {
     e.preventDefault();
 
     try {
-      await api.post("/admin/profile", profile);
+      await createProfile(profile);
 
       setSuccessMsg("✅ Profile saved successfully");
       fetchProfile();
@@ -59,8 +59,7 @@ export default function AdminProfile() {
     if (!savedProfile) return;
 
     try {
-      await api.delete(`/admin/profile/${savedProfile.id}`);
-
+      await deleteProfile(savedProfile.id);
       setSavedProfile(null);
       setProfile({
         fullName: "",

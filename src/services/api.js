@@ -52,6 +52,9 @@ export const getProfile = () => api.get("/profile");
 export const createProfile = (data) =>
   api.post("/admin/profile", data);
 
+export const deleteProfile = (id) =>
+  api.delete(`/admin/profile/${id}`);
+
 /* ======================
    PROJECT APIs
 ====================== */
@@ -60,7 +63,7 @@ export const getProjects = () => api.get("/projects");
 export const createProject = (data) =>
   api.post("/admin/projects", data);
 
-export const deleteProject = (id) =>
+export const deleteProjects = (id) =>
   api.delete(`/admin/projects/${id}`);
 
 /* ======================
