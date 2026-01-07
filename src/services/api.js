@@ -64,7 +64,7 @@ export const deleteProject = (id) =>
   api.delete(`/admin/projects/${id}`);
 
 /* ======================
-   AUTH APIs
+   AUTH APIs 
 ====================== */
 export const loginUser = (data) =>
   api.post("/login", data);
